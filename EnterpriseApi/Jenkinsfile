@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+
+    environment {
+        // 定義映像檔名稱
+        IMAGE_NAME = "enterprise-api"
+        // 定義 Docker Tag，通常使用 Build Number 或 Git Commit ID
+        IMAGE_TAG = "${BUILD_NUMBER}"
+        // 容器對外連接埠 (改為 5001 避免 5000 被佔用)
+        PORT = "5001"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // 從原始碼控制系統取得程式碼
+                checkout scm
+            }
+        }
+
+        stage('Build & Test') {
+            steps {
+                echo 'Building project...'
+                // 如果 Jenkins 環境有安裝 .NET SDK，可以執行 dotnet build
+                // sh 'dotnet build EnterpriseApi.csproj -c Release'
+                
+                // 這裡我們直接透過 Dockerfile 來進行多階段編譯 (Multi-stage Build)
+                echo 'Compiling via Docker multi-stage build...'
+            }
+        }
+
+        stage('Build & Deploy') {
+            steps {
+                script {
+                    echo "Building and Deploying with Docker Compose..."
+                    // 使用 docker-compose 自動打包並啟動
+                    sh "docker-compose up -d --build"
+                    echo "Deployment successful! Access at http://localhost:5000"
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline completed successfully!"
+        }
+        failure {
+            echo "Pipeline failed! Please check logs."
+        }
+    }
+}

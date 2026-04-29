@@ -6,24 +6,31 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. 註冊 Controller 支援
+// --- Jenkins CI/CD 測試成功！ ---
+Console.WriteLine(">>> 服務已透過 Jenkins 自動化部署啟動 (目標框架: .NET 10.0) <<<");
+
+// 1. 註冊 CORS 支援 (允許前端跨網域存取)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173") // Vite 預設 Port
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+// 2. 註冊 Controller 支援
 builder.Services.AddControllers();
 
-// 2. 註冊 AppDbContext
-// 這裡使用 InMemoryDatabase 做為開發/測試之用 (命名為 EnterpriseDb)
+// 3. 註冊 AppDbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase("EnterpriseDb"));
 
-/* 
- * SQL Server 註冊範例 (未來更換資料庫時參考)
- * builder.Services.AddDbContext<AppDbContext>(options =>
- *     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
- */
-
-// 3. 註冊 Channel<OrderRequest> 為 Singleton (生產者與消費者共享)
+// 4. 註冊 Channel<OrderRequest> 為 Singleton
 builder.Services.AddSingleton(Channel.CreateUnbounded<OrderRequest>());
 
-// 4. 註冊 OrderProcessingService 為 HostedService (背景消費者程式)
+// 5. 註冊 OrderProcessingService 為 HostedService
 builder.Services.AddHostedService<OrderProcessingService>();
 
 var app = builder.Build();
@@ -34,10 +41,15 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.UseHttpsRedirection();
+// 使用 CORS 政策 (必須在 MapControllers 之前)
+app.UseCors("AllowFrontend");
+
+// 暫時關閉 HTTPS 重定向，方便本地 HTTP 測試
+// app.UseHttpsRedirection();
+
 app.UseAuthorization();
 
-// 5. 對應 Controllers
+// 6. 對應 Controllers
 app.MapControllers();
 
 app.Run();

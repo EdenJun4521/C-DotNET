@@ -1251,11 +1251,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/edencho/Desktop/EnterpriseApi/EnterpriseApi.csproj",
+      "projectUniqueName": "/Users/edencho/C-DotNET/EnterpriseApi/EnterpriseApi.csproj",
       "projectName": "EnterpriseApi",
-      "projectPath": "/Users/edencho/Desktop/EnterpriseApi/EnterpriseApi.csproj",
+      "projectPath": "/Users/edencho/C-DotNET/EnterpriseApi/EnterpriseApi.csproj",
       "packagesPath": "/Users/edencho/.nuget/packages/",
-      "outputPath": "/Users/edencho/Desktop/EnterpriseApi/obj/",
+      "outputPath": "/Users/edencho/C-DotNET/EnterpriseApi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/edencho/.nuget/NuGet/NuGet.Config"
