@@ -35,7 +35,7 @@ pipeline {
                     echo "Building and Deploying with Docker Compose..."
                     // 使用 docker compose 自動打包並啟動
                     sh "docker compose up -d --build"
-                    echo "Deployment successful! Access at http://localhost:5000"
+                    echo "Deployment successful! Access at http://localhost:5001"
                 }
             }
         }
