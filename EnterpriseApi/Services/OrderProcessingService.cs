@@ -47,7 +47,7 @@ namespace EnterpriseApi.Services
                             CustomerName = request.CustomerName,
                             Amount = request.Amount,
                             CreatedAt = DateTime.Now,
-                            Status = "交易成功"
+                            Status = "交易成功:)"
                         };
 
                         await dbContext.Orders.AddAsync(entity, stoppingToken);
