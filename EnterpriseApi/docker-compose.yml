@@ -1,6 +1,6 @@
 services:
   api:
-    build: .
+    image: enterprise-api:latest
     container_name: enterprise-api
     ports:
       - "5001:80"
