@@ -27,7 +27,11 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase("EnterpriseDb"));
 
-// 4. 註冊 Channel<OrderRequest> 為 Singleton
+// 4. 註冊 Swagger (API 測試介面)
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// 5. 註冊 Channel<OrderRequest> 為 Singleton
 builder.Services.AddSingleton(Channel.CreateUnbounded<OrderRequest>());
 
 // 5. 註冊 OrderProcessingService 為 HostedService
@@ -36,9 +40,11 @@ builder.Services.AddHostedService<OrderProcessingService>();
 var app = builder.Build();
 
 // 標註必要的 Middleware
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || true) // 這裡暫時強迫開啟，方便你看到介面
 {
     app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 // 使用 CORS 政策 (必須在 MapControllers 之前)
