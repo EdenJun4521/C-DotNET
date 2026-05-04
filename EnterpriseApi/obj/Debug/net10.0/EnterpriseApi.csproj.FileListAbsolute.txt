@@ -135,3 +135,8 @@
 /Users/edencho/C-DotNET/EnterpriseApi/obj/Debug/net10.0/EnterpriseApi.pdb
 /Users/edencho/C-DotNET/EnterpriseApi/obj/Debug/net10.0/EnterpriseApi.genruntimeconfig.cache
 /Users/edencho/C-DotNET/EnterpriseApi/obj/Debug/net10.0/ref/EnterpriseApi.dll
+/Users/edencho/C-DotNET/EnterpriseApi/bin/Debug/net10.0/Microsoft.OpenApi.dll
+/Users/edencho/C-DotNET/EnterpriseApi/bin/Debug/net10.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/edencho/C-DotNET/EnterpriseApi/bin/Debug/net10.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/edencho/C-DotNET/EnterpriseApi/bin/Debug/net10.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/edencho/C-DotNET/EnterpriseApi/obj/Debug/net10.0/EnterpriseApi.MvcApplicationPartsAssemblyInfo.cs
